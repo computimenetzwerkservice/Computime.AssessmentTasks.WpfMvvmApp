@@ -33,3 +33,48 @@ Erstellen Sie eine WPF-Anwendung, die es ermöglicht, Personen zu einer Liste hin
 
 3. **Datenbindung**:
    - Verwenden Sie Datenbindung, um die Textboxen und das DataGrid mit den Eigenschaften der `Person`-Klasse zu verknüpfen.
+
+## Bewerberaufgabe Teil 2
+
+### Ziel
+Erweitern Sie die WPF-Anwendung, um die erfassten Personen in einer EF Core In-Memory Database zu speichern. Implementieren Sie die Standard-CRUD-Methoden (Create, Read, Update, Delete) und stellen Sie deren korrekte Funktion sicher.
+
+### Anforderungen
+
+1. **Einrichten der EF Core In-Memory Database**:
+   - Installieren Sie die erforderlichen NuGet-Pakete für EF Core und die In-Memory Database.
+   - Konfigurieren Sie den DbContext für die In-Memory Database.
+
+2. **CRUD-Methoden**:
+   - Implementieren Sie die folgenden Methoden:
+     - `CreatePerson(Person person)`: Fügt eine neue Person zur Datenbank hinzu.
+     - `ReadPersons()`: Liest alle Personen aus der Datenbank.
+     - `UpdatePerson(Person person)`: Aktualisiert eine bestehende Person in der Datenbank.
+     - `DeletePerson(int personId)`: Löscht eine Person aus der Datenbank.
+
+3. **Integration in das ViewModel**:
+   - Passen Sie das ViewModel an, um die Create-Methode zu nutzen.
+   - Stellen Sie sicher, dass die Daten im DataGrid korrekt angelegt werden.
+   - Hinweis: Die Lesen, Aktualisieren und Löschen-Methoden sind optional.
+
+### Schritte
+
+1. **Einrichten der EF Core In-Memory Database**:
+   - Fügen Sie die folgenden NuGet-Pakete zu Ihrem Projekt hinzu:
+     - `Microsoft.EntityFrameworkCore`
+     - `Microsoft.EntityFrameworkCore.InMemory`
+   - Erstellen Sie eine neue Klasse `AppDbContext`, die von `DbContext` erbt und eine `DbSet<Person>`-Eigenschaft enthält.
+
+2. **Implementieren der CRUD-Methoden**:
+   - Erstellen Sie eine neue Klasse `PersonRepository`, die die CRUD-Methoden implementiert.
+   - Verwenden Sie den `AppDbContext` in den Methoden, um die Datenbankoperationen durchzuführen.
+
+3. **Anpassen der Benutzeroberfläche**:
+   - Passen Sie die Logik in der `MainWindow`-Klasse an, um die Methoden des `PersonRepository` zu nutzen.
+   - Stellen Sie sicher, dass die Benutzeroberfläche die Daten korrekt anzeigt und aktualisiert.
+
+### Hinweise
+- Achten Sie darauf, dass die Eingaben validiert werden (z.B. Alter muss eine Zahl sein).
+- Stellen Sie sicher, dass die Anwendung MVVM-Prinzipien befolgt.
+
+Viel Erfolg bei der Umsetzung!
