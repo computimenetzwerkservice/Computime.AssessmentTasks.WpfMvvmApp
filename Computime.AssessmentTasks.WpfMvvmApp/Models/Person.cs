@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.Runtime.CompilerServices;
 
 namespace Computime.AssessmentTasks.WpfMvvmApp.Models
@@ -14,6 +15,16 @@ namespace Computime.AssessmentTasks.WpfMvvmApp.Models
         /// Ereignis, das ausgelöst wird, wenn sich eine Eigenschaft ändert
         /// </summary>
         public event PropertyChangedEventHandler PropertyChanged;
+
+
+
+        /// <summary>
+        /// Primary Key für die Person
+        /// ID wird automatisch von EF verwaltet, d.h. eine Sequenz wird inkrementiert.
+        /// </summary>
+        [Key] // Dies markiert die Id als Primärschlüssel, explizit gesetzt, damit es sieht
+        public int Id { get; set; }
+
 
         /// <summary>
         /// Alter der Person

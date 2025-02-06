@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Computime.AssessmentTasks.WpfMvvmApp.Models;
 using Microsoft.EntityFrameworkCore;
@@ -10,12 +7,15 @@ namespace Computime.AssessmentTasks.WpfMvvmApp.Persistence
 {
     /// <summary>
     /// Implementiert die 4 CRUD Ooperationen
+    /// auf den übergebenen Datenbankkontext, 
+    /// alle Operationen sind asynchron, damit es in der GUI zu keinen blocking kommt
     /// </summary>
     public class PersonRepository
     {
-
+        //Backing field for the Context
         private readonly AppDbContext _context;
 
+        // Constructor mit dem Datenbank Kontext mittels DI übergeben.
         public PersonRepository (AppDbContext context)
         {
             _context = context;
