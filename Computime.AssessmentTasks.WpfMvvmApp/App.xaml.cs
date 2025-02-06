@@ -16,6 +16,8 @@ namespace Computime.AssessmentTasks.WpfMvvmApp
         {
             
             // Konfigurieren der InMemory-DB Eigenschaft.
+            // Als Singleton, weil wir die Optionen und den Kontext nur ein einziges mal haben möchten.
+            // Es gibt nur eine Datenbank.
             containerRegistry.RegisterSingleton<AppDbContext>(() =>
             {
                 // setze den In-memory database Namen
@@ -26,6 +28,12 @@ namespace Computime.AssessmentTasks.WpfMvvmApp
                 return new AppDbContext(options);
             });
 
+            // Registiere auch das Repository als Singleton, um Nebenläufigkeiten zu vermeiden.
+            // AppDBContext ist bereits ein Singleton und verwendet somit ein Singleton.
+            // So Singleton ist die Wahl.
+            containerRegistry.RegisterSingleton<PersonRepository>();
+
+            // weitere Registrierungen für DI kommen hier hin:
         }
     }
 }

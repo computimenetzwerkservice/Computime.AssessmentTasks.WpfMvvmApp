@@ -4,11 +4,11 @@ using Computime.AssessmentTasks.WpfMvvmApp.Models;
 
 namespace Computime.AssessmentTasks.WpfMvvmApp.Persistence
 {
-    class AppDbContext : DbContext
+    public class AppDbContext : DbContext
     {
         /// <summary>
-        /// Options mit der InMemory Eigenschaft wird übergeben. 
-        /// Und an die Base Klasse übergeben wordurch das OnConfiguring ausgeführt wird.
+        /// Options mit der InMemory Eigenschaft  
+        /// wird an die Base Klasse übergeben wodurch das OnConfiguring mit den Optionen ausgeführt wird.
         /// </summary>
         /// <param name="options"></param>
         public AppDbContext (DbContextOptions<AppDbContext> options) : base(options) { }
@@ -26,17 +26,14 @@ namespace Computime.AssessmentTasks.WpfMvvmApp.Persistence
         /// Wird getriggered beim erstellen des Kontext selber.
         /// </summary>
         /// <param name="optionsBuilder"></param>
-
-        /*
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
+            // Wird nur ausgeführt, wenn keine Optionen über DI mitgegeben werden,
+            // d.h. es wird sichergestellt, dass tatsächlich eine InMemory Datenbank verwendet wird.
             if (!optionsBuilder.IsConfigured)
             {
                 optionsBuilder.UseInMemoryDatabase("InMemoryPeopleDb");
             }
         }
-        */
-
-
     }
 }

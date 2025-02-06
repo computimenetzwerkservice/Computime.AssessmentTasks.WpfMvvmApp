@@ -1,7 +1,9 @@
 ﻿using Computime.AssessmentTasks.WpfMvvmApp.Models;
 using System.Collections.ObjectModel;
 using Prism.Mvvm;
-using Prism.Commands; // For DelegateCommand
+using Prism.Commands;
+using Computime.AssessmentTasks.WpfMvvmApp.Persistence;
+using System.Threading.Tasks; // For DelegateCommand
 
 namespace Computime.AssessmentTasks.WpfMvvmApp.ViewModels
 {
@@ -11,6 +13,7 @@ namespace Computime.AssessmentTasks.WpfMvvmApp.ViewModels
         private int _age;
         private string _firstName;
         private string _lastName;
+        private PersonRepository _personRepository;
 
         public ObservableCollection<Person> People { get; set; }
 
@@ -47,19 +50,44 @@ namespace Computime.AssessmentTasks.WpfMvvmApp.ViewModels
 
         // Befehl zum Hinzufügen einer Person
         // DelegateCommand implents ICommand. 
-
         public DelegateCommand AddPersonCommand { get; private set; }
 
 
         /// <summary>
         /// Konstruktor der MainWindowViewModel-Klasse
         /// </summary>
-        public MainWindowViewModel()
+        public MainWindowViewModel(PersonRepository personRepository)
         {
+            // backing field für das Repository initialisieren
+            _personRepository = personRepository;
+
             // Leere Personen Liste.
             People = [];
             // Verknüpft XAML command mit der ViewModel methode AddPerson und CanAddPerson (für Aufgabe 2 zur Validierung).
-            AddPersonCommand = new DelegateCommand(AddPerson/*, CanAddPerson*/);
+            //AddPersonCommand = new DelegateCommand(AddPerson/*, CanAddPerson*/); // Version Ohne DB
+            AddPersonCommand = new DelegateCommand(async () => await AddPersonAsyncDB());
+        }
+
+
+        /// <summary>
+        /// Adds a person to the database and updates the UI.
+        /// </summary>
+        private async Task AddPersonAsyncDB()
+        {
+            var newPerson = new Person
+            {
+                Age = this.Age,
+                FirstName = this.FirstName,
+                LastName = this.LastName
+            };
+
+            await _personRepository.AddPersonAsync(newPerson); // Save to DB
+            People.Add(newPerson); // Update UI
+
+            // Reset input fields
+            Age = 0;
+            FirstName = string.Empty;
+            LastName = string.Empty;
         }
 
         /// <summary>
