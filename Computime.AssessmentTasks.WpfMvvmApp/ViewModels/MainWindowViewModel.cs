@@ -65,12 +65,15 @@ namespace Computime.AssessmentTasks.WpfMvvmApp.ViewModels
             People = [];
             // Verknüpft XAML command mit der ViewModel methode AddPerson und CanAddPerson (für Aufgabe 2 zur Validierung).
             //AddPersonCommand = new DelegateCommand(AddPerson/*, CanAddPerson*/); // Version Ohne DB
+
+            // Version mit der InMemory Datenbank.
             AddPersonCommand = new DelegateCommand(async () => await AddPersonAsyncDB());
         }
 
 
         /// <summary>
-        /// Adds a person to the database and updates the UI.
+        /// Fügt eine Person in die Datenbank ein und aktualisiert die Benutzeroberfläche.
+        /// Es wird eine asynchrone Methode verwendet, damit es zu keinem Blocking in der UI kommt.
         /// </summary>
         private async Task AddPersonAsyncDB()
         {

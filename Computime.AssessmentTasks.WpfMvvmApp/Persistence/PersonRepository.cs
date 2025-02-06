@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Computime.AssessmentTasks.WpfMvvmApp.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace Computime.AssessmentTasks.WpfMvvmApp.Persistence
 {
@@ -28,8 +29,24 @@ namespace Computime.AssessmentTasks.WpfMvvmApp.Persistence
         }
 
         // Read
-        // Update
-        // delete
+        public async Task<List<Person>> ReadAllPeopleAsync()
+        {
+            return await _context.People.ToListAsync();
+        }
 
+
+        // Update
+        public async Task UpdatePersonAsync(Person person)
+        {
+            _context.People.Update(person);
+            await _context.SaveChangesAsync();
+        }
+
+        // delete
+        public async Task DeletePersonAsync(Person person)
+        {
+            _context.People.Remove(person);
+            await _context.SaveChangesAsync();
+        }
     }
 }
