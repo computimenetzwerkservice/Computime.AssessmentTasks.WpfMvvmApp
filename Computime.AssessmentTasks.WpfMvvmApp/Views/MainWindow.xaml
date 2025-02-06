@@ -1,10 +1,46 @@
 ﻿<Window x:Class="Computime.AssessmentTasks.WpfMvvmApp.Views.MainWindow"
+        xmlns:viewModels="clr-namespace:Computime.AssessmentTasks.WpfMvvmApp.ViewModels"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:prism="http://prismlibrary.com/"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
         prism:ViewModelLocator.AutoWireViewModel="True"
         Title="{Binding Title}" Height="350" Width="525">
+        <Window.DataContext>
+            <!-- For design-time support -->
+            <viewModels:MainWindowViewModel />
+        </Window.DataContext>
+
     <Grid>
         <ContentControl prism:RegionManager.RegionName="ContentRegion" />
+        
+        <StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="10">
+                <Label Content="Age" Width="100" VerticalAlignment="Center"/>
+                <TextBox Width="200" Text="{Binding Age, UpdateSourceTrigger=PropertyChanged}"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="10">
+                <Label Content="First Name" Width="100" VerticalAlignment="Center"/>
+                <TextBox Width="200" Text="{Binding FirstName, UpdateSourceTrigger=PropertyChanged}"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="10">
+                <Label Content="Last Name" Width="100" VerticalAlignment="Center"/>
+                <TextBox Width="200" Text="{Binding LastName, UpdateSourceTrigger=PropertyChanged}"/>
+            </StackPanel>
+
+            <Button Content="Hinzufügen" Width="100" Margin="10" Command="{Binding AddPersonCommand}"/>
+
+            <DataGrid Name="Personen" ItemsSource="{Binding People}" 
+                      AutoGenerateColumns="False" IsReadOnly="True">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="First Name" Binding="{Binding FirstName}"  />
+                    <DataGridTextColumn Header="Last Name" Binding="{Binding LastName}" />
+                    <DataGridTextColumn Header="Age" Binding="{Binding Age}" />
+                </DataGrid.Columns>
+            </DataGrid>
+        </StackPanel>
+
     </Grid>
 </Window>
